@@ -46,6 +46,7 @@
 						<ul>
 							<li><a href="budgie-blog.html#Intro">The Beginning (6/7/2024)</a></li>
 							<li><a href="budgie-blog.html#Unifying">Unifying (6/14/2024)</a></li>
+							<li><a href="budgie-blog.html#Scaling the Project to Scope">Scaling the Project to Scope (6/22/2024)</a></li>
 						</ul>
 						
 					</nav>
@@ -76,7 +77,7 @@
 								<h2>Unifying (6/14/2024)</h2>
 								<p><b>Designing the App</b></p>
 								<p>We are making great progress! This week, we created a Design Document and Style Tile describing every design detail and feature we plan to make (except for the specific layouts we'll get down next week). I believe it's a good idea to really nail down the design details in the beginning to make sure we know what we're making. Our teamwork has been good so far; everyone is volunteering to take on tasks, and the work is being split evenly. We each get along well, and I think we'll make a great team! You can see our current version of the Design Document <a href="assets/Budgie Design Document.pdf" target="_blank">here</a>, and below is our Style Tile.</p>
-								<img src="images/Style Tile Draft.png" style="width: 100%" alt="Style Tile" />
+								<img src="images/Style Tile Draft.png" style="width: 100%; padding:20px" alt="Style Tile" />
 								<p><b>Problem: Differing Visions for the App</b></p>
 								<p>One problem we faced this week was that we had a slightly different vision for the app. We had assumed we were all on the same page during our discussions, but in reality, we discovered we were each thinking of different features and menu systems for the app. Some of us weren't so attached to our original ideas and easily adopted new ones, but others were a little more attached. To be fair, I was one of those people, especially because I like to optimize everything, and it's hard to go with something that feels less so.</p>
 								<p><b>Solution: Listen and Communicate</b></p>
@@ -87,6 +88,23 @@
 									<li>Decide what is better together, and be objective about it. Be willing to put aside your own preferences for the preferences of your user base (the app is for them, not just you). </li>
 								</ol>
 								<p>Communicate your personal goals for the app. Try to come to an understanding. Align your goals and join forces. I believe many conflicts can be resolved this way. For us, we decided we needed to let users test the app first before we could say which idea was better for the users. It’s hard to predict what the users will do before you see them in action. In the end, I'm glad we could resolve our conflicts quite nicely, and I hope to continue to resolve our disputes this way.
+								<hr>
+							</div>
+
+							<div id="Scaling the Project to Scope">
+								<br>
+								<h2>Scaling the Project to Scope (6/22/2024)</h2>
+								<p><b>Problem: Is This Feature Too Ambitious?</b></p>
+								<p>One of the main features of Budgie, our app, is that you can take a picture of a price label at the store and it will automatically fill in the price of the item for you. To make this work, we will need an OCR (Optical Character Recognition) library, which performs the complicated work of programmatically making out the numbers and characters shown in the picture. There are a good number of available OCR libraries out there, but I was really interested in making my own. Our producer liked the idea but wanted to know if it was too out of scope for our 5-month development period. I honestly couldn’t answer that question. Apart from some experience with machine learning, I had no idea how to make an OCR. This leads to my problem: how could I know if making an OCR would be too difficult?								</p>
+								<p><b>Solution: Research and Ask Experienced Developers</b></p>
+								<figure style="float:right; margin: 0 0 10px 20px; width:20%; text-align:center;">
+									<img src="images/brandonpatterson.jpg" style="max-width: 100%;">
+									<figcaption style="font-size:75%">Brandon Patterson (LinkedIn <a href="https://www.linkedin.com/in/brandon-patterson-7038813/" target="_blank">here</a>)</figcaption>
+								</figure>
+								
+								<p>One way to find out was to talk to someone who knows what it’s like to make an OCR. I decided to email my machine learning professor, Brandon Patterson, about what he thought since he has experience on the subject and knows my current level of knowledge. While I waited for his reply, I did some online research to find out what it would take. I found a helpful post on Quora about someone describing how he made an OCR from scratch. He said it took him “almost 2-3 days of consistent efforts and research” to make it, with regular updates (Atharva Hudlikar, <a href="https://qr.ae/pszcMT" target="_blank">https://qr.ae/pszcMT</a>). Another individual posted that they had worked on theirs “for several years” to make it efficient (Loic Aigon, <a href="https://qr.ae/pszcgj" target="_blank">https://qr.ae/pszcgj</a>). By then, Brandon emailed back and said the hardest part would be the image processing, which he wasn’t familiar with so he couldn’t say how difficult it’d be. </p>
+								<p>I decided I would have to get more familiar with the process of developing an OCR to actually make a decision. As I researched online, I realized that how-to tutorials helped me the most because I could visualize in code what the process would look like. </p>
+								<p>After a few hours of research, I felt confident that I could make an OCR in the time frame, just not from scratch. I told my producer that there are plenty of helpful libraries I can use that will still allow me to fine-tune the OCR for our app, like OpenCV and ML.NET. And of course, if it turns out that making an OCR is too much after all, then we can always use an existing one. I’m glad I did this research because it has only made me more excited to start developing this app!</p>
 								<hr>
 							</div>
 								
