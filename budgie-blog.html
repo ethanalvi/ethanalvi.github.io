@@ -50,6 +50,7 @@
 							<li><a href="budgie-blog.html#Playing Telephone">Playing Telephone (6/29/2024)</a></li>
 							<li><a href="budgie-blog.html#Choosing the Right Tool">Choosing the Right Tool (7/8/2024)</a></li>
 							<li><a href="budgie-blog.html#Task Management">Task Management (7/13/2024)</a></li>
+							<li><a href="budgie-blog.html#Working with Tensors">Working with Tensors (7/21/2024)</a></li>
 						</ul>
 						
 					</nav>
@@ -161,6 +162,18 @@
 								</ol>
 								<p>This will certainly help me to choose my tasks more wisely and to feel more confident that I will complete them. I’m sure there will still be unexpected things that come up, but I can always talk to the producer and maybe change the task if seems unreasonable.
 								</p>
+								<hr>
+							</div>
+
+							<div id="Working with Tensors">
+								<br>
+								<h2>Working with Tensors (7/21/2024)</h2>
+								<p><b>Problem: Getting the Stored Value of an Unresolved Tensor</b></p>
+								<p>This week, I worked on building and training the OCR model using TensorFlow. TensorFlow makes neural networks way easier for me, but it still takes some time to learn, and I still encounter errors as I try to use it. For example, one of the biggest errors I had this week looked simple on the surface. As I tried to write the encode function used for each sample of the dataset, I encountered a conversion type error from tensor object to string. Since I needed that conversion to construct the file path to the image dataset, I looked up ways to make this conversion. According to this GitHub issue <a href="https://github.com/tensorflow/tensorflow/issues/40309" target="_blank">page</a>, TensorFlow doesn’t support that kind of conversion because the tensor’s value isn’t determined until TensorFlow’s compute graph needs it (lazy evaluation). That meant I needed to get creative.</p>
+								<p><b>Solution: Address (use py_function) or Avoid (approach differently)</b></p>
+								<p>Luckily enough, I’m not the only one who encountered this issue, and TensorFlow has a function called ‘py_function’ to work around it. It essentially works as a wrapper to your function that will evaluate the tensors for you to retrieve their value. This works great, but I wasn’t familiar with how to use it with my dataset. After attempting to implement it, I found it difficult to test to know that it works. I didn’t want to move forward with code that I wasn’t comfortable with, especially as a beginner with TensorFlow, so I decided to do something else. This time, I found a way to remove the need to make the tensor-to-string conversion entirely. Instead of constructing the file path to the image during the encoding stage, I would do it before in the preprocessing stage, and use the path to the image as an input.</p>
+								<img src="images/tensor_diagram.png" style="width: 100%; padding:40px" alt="Tensor Diagram" />
+								<p>While part of me feels unsatisfied with sidestepping the problem, the code itself feels cleaner this way, and more importantly, I know that it’ll work, which may save a lot of time for me in the long run. I imagine sidestepping is common in the workplace in cases where it’s more efficient to do so, but I'll be careful not to make it my default. I’m grateful I was able to solve this problem and hope to find more solutions in the future.</p>
 								<hr>
 							</div>
 								
