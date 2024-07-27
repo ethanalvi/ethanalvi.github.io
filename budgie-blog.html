@@ -51,6 +51,7 @@
 							<li><a href="budgie-blog.html#Choosing the Right Tool">Choosing the Right Tool (7/8/2024)</a></li>
 							<li><a href="budgie-blog.html#Task Management">Task Management (7/13/2024)</a></li>
 							<li><a href="budgie-blog.html#Working with Tensors">Working with Tensors (7/21/2024)</a></li>
+							<li><a href="budgie-blog.html#Choosing the Best OCR Design">Choosing the Best OCR Design (7/26/2024)</a></li>
 						</ul>
 						
 					</nav>
@@ -81,7 +82,7 @@
 								<h2>Unifying (6/14/2024)</h2>
 								<p><b>Designing the App</b></p>
 								<p>We are making great progress! This week, we created a Design Document and Style Tile describing every design detail and feature we plan to make (except for the specific layouts we'll get down next week). I believe it's a good idea to really nail down the design details in the beginning to make sure we know what we're making. Our teamwork has been good so far; everyone is volunteering to take on tasks, and the work is being split evenly. We each get along well, and I think we'll make a great team! You can see our current version of the Design Document <a href="assets/Budgie Design Document.pdf" target="_blank">here</a>, and below is our Style Tile.</p>
-								<img src="images/Style Tile Draft.png" style="width: 100%; padding:20px" alt="Style Tile" />
+								<img src="images/Style Tile Draft.png" style="width: 100%; padding:20px 8%"  alt="Style Tile" />
 								<p><b>Problem: Differing Visions for the App</b></p>
 								<p>One problem we faced this week was that we had a slightly different vision for the app. We had assumed we were all on the same page during our discussions, but in reality, we discovered we were each thinking of different features and menu systems for the app. Some of us weren't so attached to our original ideas and easily adopted new ones, but others were a little more attached. To be fair, I was one of those people, especially because I like to optimize everything, and it's hard to go with something that feels less so.</p>
 								<p><b>Solution: Listen and Communicate</b></p>
@@ -172,8 +173,22 @@
 								<p>This week, I worked on building and training the OCR model using TensorFlow. TensorFlow makes neural networks way easier for me, but it still takes some time to learn, and I still encounter errors as I try to use it. For example, one of the biggest errors I had this week looked simple on the surface. As I tried to write the encode function used for each sample of the dataset, I encountered a conversion type error from tensor object to string. Since I needed that conversion to construct the file path to the image dataset, I looked up ways to make this conversion. According to this GitHub issue <a href="https://github.com/tensorflow/tensorflow/issues/40309" target="_blank">page</a>, TensorFlow doesn’t support that kind of conversion because the tensor’s value isn’t determined until TensorFlow’s compute graph needs it (lazy evaluation). That meant I needed to get creative.</p>
 								<p><b>Solution: Address (use py_function) or Avoid (approach differently)</b></p>
 								<p>Luckily enough, I’m not the only one who encountered this issue, and TensorFlow has a function called ‘py_function’ to work around it. It essentially works as a wrapper to your function that will evaluate the tensors for you to retrieve their value. This works great, but I wasn’t familiar with how to use it with my dataset. After attempting to implement it, I found it difficult to test to know that it works. I didn’t want to move forward with code that I wasn’t comfortable with, especially as a beginner with TensorFlow, so I decided to do something else. This time, I found a way to remove the need to make the tensor-to-string conversion entirely. Instead of constructing the file path to the image during the encoding stage, I would do it before in the preprocessing stage, and use the path to the image as an input.</p>
-								<img src="images/tensor_diagram.png" style="width: 100%; padding:40px" alt="Tensor Diagram" />
-								<p>While part of me feels unsatisfied with sidestepping the problem, the code itself feels cleaner this way, and more importantly, I know that it’ll work, which may save a lot of time for me in the long run. I imagine sidestepping is common in the workplace in cases where it’s more efficient to do so, but I'll be careful not to make it my default. I’m grateful I was able to solve this problem and hope to find more solutions in the future.</p>
+								<img src="images/tensor_diagram.png" style="width: 100%; padding:20px 8%" alt="Tensor Diagram" />
+								<p>While part of me feels unsatisfied with sidestepping the problem, the code itself feels cleaner this way, and more importantly, I know that it’ll work, which may save a lot of time for me in the long run. I imagine sidestepping is common in the workplace in cases where it’s more efficient to do so, but I'll try not to make it my default. I’m grateful I was able to solve this problem and hope to find more solutions in the future.</p>
+								<hr>
+							</div>
+
+							<div id="Choosing the Best OCR Design">
+								<br>
+								<h2>Choosing the Best OCR Design (7/26/2024)</h2>
+								<p><b>Problem: Should I Switch From Word to Character Recognition?</b></p>
+								<p>This week, my goal was to have the model finally able to predict the text on an image. I just needed to train the model on the data, and I could analyze how well it worked. However, when I started training the model, an error came up. The label data needed to be all the same length, and the words I was using were of various sizes. This meant I needed to pad each of the words with dummy characters so they all were the same length. It would look something like this:</p>
+								<img src="images/padding.png", style="width: 100%; padding:20px 15%" alt="Padding Example"  />
+								<p>However, I encountered some errors as I tried to implement this, and It was hard to debug TensorFlow without doing a lot of research. Interestingly enough, I found another design online for the OCR model. Instead of guessing the words on the image, it would guess the characters, which would bypass the padding problem I’m running into. Since time was running short, switching to this design was tempting. I needed to decide, should I make the switch?</p>
+								<img src="images/model_diagram.png", style="width: 100%; padding:20px 8%" alt="Word Recognition vs. Character Recognition" />
+								<p><b>Solution: Is It Better and Can I Do It?</b></p>
+								<p>To make the decision, I needed to learn more about the pros and cons of using character recognition as opposed to word recognition. I asked ChatGPT for a quick overview, and I found a lot of interesting points. Word-based recognition could have trouble predicting words it wasn’t trained on. That was concerning for me since our model is meant for prices, and the dataset didn’t contain many numbers, and even fewer price tags. Character-based recognition, on the other hand, could just use a font dataset and predict the numbers individually. Although it can’t use surrounding characters as context clues to determine what the current character is, since I’m dealing with prices, that wouldn’t help too much anyway. </p>
+								<p>It sounded like character-based recognition would be a better model for our app, but before I decided to build it, I wanted to make sure I could. So, I tried to find all the necessary resources I would need, like the dataset, a method to isolate characters in an image, and online references, which was easier than I expected. With that, I felt confident that I could build the model quickly enough, so I decided to switch to the character-based model. I finished it just in time for our build review, and it worked great! I'm glad I made the switch. The model is predicting the characters accurately, and now I’m close to finally implementing it on our app!</p>
 								<hr>
 							</div>
 								
