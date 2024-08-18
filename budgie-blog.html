@@ -52,6 +52,7 @@
 							<li><a href="budgie-blog.html#Task Management">Task Management (7/13/2024)</a></li>
 							<li><a href="budgie-blog.html#Working with Tensors">Working with Tensors (7/21/2024)</a></li>
 							<li><a href="budgie-blog.html#Choosing the Best OCR Design">Choosing the Best OCR Design (7/26/2024)</a></li>
+							<li><a href="budgie-blog.html#Handling Bad Data">Handling Bad Data (8/17/2024)</a></li>
 						</ul>
 						
 					</nav>
@@ -189,6 +190,24 @@
 								<p><b>Solution: Is It Better and Can I Do It?</b></p>
 								<p>To make the decision, I needed to learn more about the pros and cons of using character recognition as opposed to word recognition. I asked ChatGPT for a quick overview, and I found a lot of interesting points. Word-based recognition could have trouble predicting words it wasn’t trained on. That was concerning for me since our model is meant for prices, and the dataset didn’t contain many numbers, and even fewer price tags. Character-based recognition, on the other hand, could just use a font dataset and predict the numbers individually. Although it can’t use surrounding characters as context clues to determine what the current character is, since I’m dealing with prices, that wouldn’t help too much anyway. </p>
 								<p>It sounded like character-based recognition would be a better model for our app, but before I decided to build it, I wanted to make sure I could. So, I tried to find all the necessary resources I would need, like the dataset, a method to isolate characters in an image, and online references, which was easier than I expected. With that, I felt confident that I could build the model quickly enough, so I decided to switch to the character-based model. I finished it just in time for our build review, and it worked great! I'm glad I made the switch. The model is predicting the characters accurately, and now I’m close to finally implementing it on our app!</p>
+								<hr>
+							</div>
+
+							<div id="Handling Bad Data">
+								<br>
+								<h2>Handling Bad Data (8/17/2024)</h2>
+								<p><b>Problem: What is Keeping the OCR Model from Recognizing Decimal Points?</b></p>
+								<p>I finally have our OCR model trained, and it has worked really well so far. However, I noticed that it failed to recognize the decimal points, which made me realize that the character dataset didn’t have any decimal points or other symbols in it at all! So, I researched and found a font dataset that holds the characters of over 150 fonts, including all the symbols I needed the model to recognize. Perfect! However, when training the model on this dataset, it performed worse. How could this be? And can I fix it?</p>
+								<p><b>Solution: Verify the Dataset is Sound</b></p>
+								<p>The only significant thing I changed about the model was the dataset, so I started searching there. I displayed the images of each character, and I found something I didn’t expect!</p>
+								<img src="images/1.png", style="width: 100%; padding:20px 40%" alt="Word Recognition vs. Character Recognition" />
+								<p>The font characters were stretched to fit the 20x20 pixel format of the dataset. Looking at the image of a ‘1’, I can understand why the model got it confused with a decimal point. I didn’t have their original sizes to reverse the resizing, so I would have to think of another way to solve this issue</p>
+								<p>I ultimately decided to use the old dataset I had and only use the new one for the symbol data. After testing it out, to my dismay, the model still couldn’t recognize the decimal point. It thought it was a dollar symbol, which made me question the dataset. Looking at the data, I realized the issue.</p>
+								<img src="images/decimal.png", style="width: 100%; padding:20px 40%" alt="Word Recognition vs. Character Recognition" />
+								<p>The decimal images weren’t filling up the entire space like I expected. This was probably the underlying cause of the issue. So ultimately, I decided to make a couple dozen decimal point images myself for the dataset, which wasn’t too hard, since they’re basically circles/squares. </p>
+								<img src="images/fake_decimals.png", style="width: 100%; padding:20px 40%" alt="Word Recognition vs. Character Recognition" />
+								<p style="font-size:75%; text-align: center">Custom made decimal points sample. I varied the spacing for more accurate results.</p>
+								<p>I duplicated the images to have around 500 to avoid class balance issues. After that, the model finally could recognize the decimal point images, and the results were exactly what I wanted! After all that, I’m happy to finally get the OCR model where I want it to be, and I am excited to start using it on price labels!</p>
 								<hr>
 							</div>
 								
