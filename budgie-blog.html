@@ -53,6 +53,7 @@
 							<li><a href="budgie-blog.html#Working with Tensors">Working with Tensors (7/21/2024)</a></li>
 							<li><a href="budgie-blog.html#Choosing the Best OCR Design">Choosing the Best OCR Design (7/26/2024)</a></li>
 							<li><a href="budgie-blog.html#Handling Bad Data">Handling Bad Data (8/17/2024)</a></li>
+							<li><a href="budgie-blog.html#Improving Text Detection">Improving Text Detection (8/24/2024)</a></li>
 						</ul>
 						
 					</nav>
@@ -210,7 +211,30 @@
 								<p>I duplicated the images to have around 500 to avoid class balance issues. After that, the model finally could recognize the decimal point images, and the results were exactly what I wanted! After all that, I’m happy to finally get the OCR model where I want it to be, and I am excited to start using it on price labels!</p>
 								<hr>
 							</div>
+
+							<div id="Improving Text Detection">
+								<br>
+								<h2>Improving Text Detection (8/24/2024)</h2>
+								<p><b>Problem: How to Improve OpenCV East Text Detector?</b></p>
+								<p>This week, I finally started putting all the OCR components together, including detecting the text, separating the characters, and guessing what each character is. Here are some of the results after creating this pipeline:</p>
+								<img src="images/og1.jpg", style="width: 100%; padding:20px 20%" alt="OG Price Label Results" />
+								<img src="images/og2.jpg", style="width: 100%; padding:20px 20%" alt="OG Price Label Results" />
+								<img src="images/og3.jpg", style="width: 100%; padding:20px 20%" alt="OG Price Label Results" />
+								<p>So, as you can see, the results aren’t perfect. The character separation and recognition steps look to be working well enough, but the text detection step isn’t quite working how we want it. It’s either detecting parts of the price or not at all. What could be causing the issue, and how can we fix this?</p>
+								<p><b>Solution: Image Preprocessing</b></p>
+								<p>Our text detection is accomplished using <a href="https://github.com/ZER-0-NE/EAST-Detector-for-text-detection-using-OpenCV", target="_blank">OpenCV’s East Text Detector</a>, which may not be optimized for our label-reading purposes. I could train the East Detection model on custom data to make it more accurate or replace it completely. Both are valid options, but time-consuming. What if I try modifying the input image to see if it produces better results?</p>
+								<p>I suggest this because I have seen the East Text Detector produce different results based on the size and quality of the image. I’m hoping that if I shrink the input image, it will be able to identify the larger-sized price. Here are the results:</p>
+								<img src="images/better1.jpg", style="width: 100%; padding:20px 30%" alt="Better Price Label Results" />
+								<img src="images/better2.jpg", style="width: 100%; padding:20px 30%" alt="Better Price Label Results" />
+								<img src="images/better3.jpg", style="width: 100%; padding:20px 30%" alt="Better Price Label Results" />
+								<p>Looks like it definitely helped! It's missing a lot of the surrounding text, but we don't really care about that; it's the main price that matters. I tried various sizes, and a width of 288px worked the best. While this helped a lot, it still didn’t quite read some prices on images like these:</p>
+								<img src="images/worse1.jpg", style="width: 100%; padding:20px 30%" alt="Worse Price Label Results" />
+								<img src="images/worse2.jpg", style="width: 100%; padding:20px 30%" alt="Worse Price Label Results" />
+								<p>For these types of images, we’ll have to find other solutions. I’ll move forward for now since these are less likely to happen, but I plan to revisit these issues eventually.</p>
+								<hr>
+							</div>
 								
+
 						</div>
 					</div>
 
