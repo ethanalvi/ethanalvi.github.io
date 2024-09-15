@@ -54,6 +54,7 @@
 							<li><a href="budgie-blog.html#Choosing the Best OCR Design">Choosing the Best OCR Design (7/26/2024)</a></li>
 							<li><a href="budgie-blog.html#Handling Bad Data">Handling Bad Data (8/17/2024)</a></li>
 							<li><a href="budgie-blog.html#Improving Text Detection">Improving Text Detection (8/24/2024)</a></li>
+							<li><a href="budgie-blog.html#Meeting App Specifications">Meeting App Specifications (9/14/2024)</a></li>
 						</ul>
 						
 					</nav>
@@ -217,9 +218,9 @@
 								<h2>Improving Text Detection (8/24/2024)</h2>
 								<p><b>Problem: How to Improve OpenCV East Text Detector?</b></p>
 								<p>This week, I finally started putting all the OCR components together, including detecting the text, separating the characters, and guessing what each character is. Here are some of the results after creating this pipeline:</p>
-								<img src="images/og1.jpg", style="width: 100%; padding:20px 20%" alt="OG Price Label Results" />
-								<img src="images/og2.jpg", style="width: 100%; padding:20px 20%" alt="OG Price Label Results" />
-								<img src="images/og3.jpg", style="width: 100%; padding:20px 20%" alt="OG Price Label Results" />
+								<img src="images/og1.jpg", style="width: 100%; padding:20px 30%" alt="OG Price Label Results" />
+								<img src="images/og2.jpg", style="width: 100%; padding:20px 30%" alt="OG Price Label Results" />
+								<img src="images/og3.jpg", style="width: 100%; padding:20px 30%" alt="OG Price Label Results" />
 								<p>So, as you can see, the results aren’t perfect. The character separation and recognition steps look to be working well enough, but the text detection step isn’t quite working how we want it. It’s either detecting parts of the price or not at all. What could be causing the issue, and how can we fix this?</p>
 								<p><b>Solution: Image Preprocessing</b></p>
 								<p>Our text detection is accomplished using <a href="https://github.com/ZER-0-NE/EAST-Detector-for-text-detection-using-OpenCV", target="_blank">OpenCV’s East Text Detector</a>, which may not be optimized for our label-reading purposes. I could train the East Detection model on custom data to make it more accurate or replace it completely. Both are valid options, but time-consuming. What if I try modifying the input image to see if it produces better results?</p>
@@ -227,10 +228,23 @@
 								<img src="images/better1.jpg", style="width: 100%; padding:20px 30%" alt="Better Price Label Results" />
 								<img src="images/better2.jpg", style="width: 100%; padding:20px 30%" alt="Better Price Label Results" />
 								<img src="images/better3.jpg", style="width: 100%; padding:20px 30%" alt="Better Price Label Results" />
-								<p>Looks like it definitely helped! It's missing a lot of the surrounding text, but we don't really care about that; it's the main price that matters. I tried various sizes, and a width of 288px worked the best. While this helped a lot, it still didn’t quite read some prices on images like these:</p>
+								<p>Looks like it definitely helped! It's missing a lot of the surrounding text, but we don't really care about that; it's the main price that matters. I tried various sizes, and a width of 320px worked the best. While this helped a lot, it still didn’t quite read some prices on images like these:</p>
 								<img src="images/worse1.jpg", style="width: 100%; padding:20px 30%" alt="Worse Price Label Results" />
 								<img src="images/worse2.jpg", style="width: 100%; padding:20px 30%" alt="Worse Price Label Results" />
 								<p>For these types of images, we’ll have to find other solutions. I’ll move forward for now since these are less likely to happen, but I plan to revisit these issues eventually.</p>
+								<hr>
+							</div>
+
+							<div id="Meeting App Specifications">
+								<br>
+								<h2>Meeting App Specifications (9/14/2024)</h2>
+								<p><b>Problem: How to Meet Hosting Service Specifications?</b></p>
+								<p>Now that the OCR program worked well enough to detect the price from an image, I decided to package it up as an API and host it on a web service so I could make calls to it via HTTP requests from our app. However, as I was looking for web services, I realized there were free-tier limitations that our API didn’t meet. I didn’t want to spend any money to host the API, so I looked for the best options online, eventually landing on PythonAnywhere. There were still some specifications the API didn’t meet: PythonAnywhere only supports WSGI applications and uses an older version of Python (Python 3.10). The API is an ASGI application and uses Python 3.12, which is required for the OCR to work properly. Can I resolve these issues? And how?</p>
+								<p><b>Solution: Refactor API and Model</b></p>
+								<p>If I can change the API to meet these specifications, then PythonAnywhere will work great for our hosting service. The first problem was that the API wasn’t the right type of API. It needs to be WSGI (synchronous) and not ASGI (asynchronous). Can I change that? Yes, I can switch the framework from FastAPI (ASGI) to Flask (WSGI). I chose ASGI to begin with because handling multiple requests at the same time would be nice if the app became popular, but since I have zero budget, WSGI will do just fine for now. Making the switch was simple.</p>
+								<p>The second problem was that PythonAnywhere runs its services using Python 3.10, which crashes the API when it tries to import my OCR model since it was made with the TensorFlow library for Python 3.12. I tried to update the Python version on PythonAnywhere, but it failed since it would go over the maximum allotted disk space for my project.</p>
+								<p>So, the only other option was to downgrade my OCR model so it would work on PythonAnywhere. I created a virtual environment with Python 3.10, where I ran the code that builds the OCR model and exports it as a .keras file. It worked with the lower version of TensorFlow, and after uploading it to PythonAnywhere, the API ran like a charm!</p>
+								<p>Getting the API to work on a free hosting platform took a lot longer than I thought, but I’m glad I found a solution. It made me realize that it’s worth researching the limitations you have to work with before you start programming.</p>
 								<hr>
 							</div>
 								
