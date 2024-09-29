@@ -45,16 +45,17 @@
 						<h3 >Blog Posts</h3>
 						<ul>
 							<li><a href="budgie-blog.html#Intro">The Beginning (6/7/2024)</a></li>
-							<li><a href="budgie-blog.html#Unifying">Unifying (6/14/2024)</a></li>
+							<li><a href="budgie-blog.html#Unifying">Unifying the Team (6/14/2024)</a></li>
 							<li><a href="budgie-blog.html#Scaling the Project to Scope">Scaling the Project to Scope (6/22/2024)</a></li>
-							<li><a href="budgie-blog.html#Playing Telephone">Playing Telephone (6/29/2024)</a></li>
-							<li><a href="budgie-blog.html#Choosing the Right Tool">Choosing the Right Tool (7/8/2024)</a></li>
-							<li><a href="budgie-blog.html#Task Management">Task Management (7/13/2024)</a></li>
+							<li><a href="budgie-blog.html#Playing Telephone">Communicating With the Team (6/29/2024)</a></li>
+							<li><a href="budgie-blog.html#Choosing the Right Tool">Choosing the Right AI Framework (7/8/2024)</a></li>
+							<li><a href="budgie-blog.html#Task Management">Improving Jira Tasks (7/13/2024)</a></li>
 							<li><a href="budgie-blog.html#Working with Tensors">Working with Tensors (7/21/2024)</a></li>
 							<li><a href="budgie-blog.html#Choosing the Best OCR Design">Choosing the Best OCR Design (7/26/2024)</a></li>
 							<li><a href="budgie-blog.html#Handling Bad Data">Handling Bad Data (8/17/2024)</a></li>
 							<li><a href="budgie-blog.html#Improving Text Detection">Improving Text Detection (8/24/2024)</a></li>
 							<li><a href="budgie-blog.html#Meeting App Specifications">Meeting App Specifications (9/14/2024)</a></li>
+							<li><a href="budgie-blog.html#Creating User Tests">Creating User Tests (9/28/2024)</a></li>
 						</ul>
 						
 					</nav>
@@ -82,7 +83,7 @@
 
 							<div id="Unifying">
 								<br>
-								<h2>Unifying (6/14/2024)</h2>
+								<h2>Unifying the Team (6/14/2024)</h2>
 								<p><b>Designing the App</b></p>
 								<p>We are making great progress! This week, we created a Design Document and Style Tile describing every design detail and feature we plan to make (except for the specific layouts we'll get down next week). I believe it's a good idea to really nail down the design details in the beginning to make sure we know what we're making. Our teamwork has been good so far; everyone is volunteering to take on tasks, and the work is being split evenly. We each get along well, and I think we'll make a great team! You can see our current version of the Design Document <a href="assets/Budgie Design Document.pdf" target="_blank">here</a>, and below is our Style Tile.</p>
 								<img src="images/Style Tile Draft.png" style="width: 100%; padding:20px 8%"  alt="Style Tile" />
@@ -118,7 +119,7 @@
 
 							<div id="Playing Telephone">
 								<br>
-								<h2>Playing Telephone (6/29/2024)</h2>
+								<h2>Communicating With the Team (6/29/2024)</h2>
 								<p><b>Problem: Not Communicating Effectively</b></p>
 								<p>Our team is doing well, although one issue has come up: communication. The main thing is that I knew Saul well, and I knew Steven well, but Saul and Steven don’t know each other well. So, knowing they were more comfortable sharing their ideas with me, I started acting like the team’s communications facilitator: I would sometimes talk one on one with them about the project and get everyone’s ideas out that way. I talked with Steven about some issues with the UI, and he had some good ideas, and we came to a consensus on what we wanted. Later, I talked to Saul about the solution, but he had something else in mind that he wanted to try instead. There are a million different ways to do UI, and I wasn't married to our solution, so I was totally fine changing it. </p>
 								<p>We decided to move forward with the new idea, but then I forgot to tell Steven about it the next time I saw him, so when the issue came up in conversation, they were both under the impression that the other was going off script. Not only that, but they were both passionate about their ideas, which only amplified the conflict. This happened with a few topics just this past week. This, along with some other factors, led to the two having some very heated discussions. I explained my part of the story, and that it was partly my fault, which helped a little bit, but still didn’t resolve the conflict. I was determined to make things better, so I wracked my 
@@ -134,7 +135,7 @@
 
 							<div id="Choosing the Right Tool">
 								<br>
-								<h2>Choosing the Right Tool (7/8/2024)</h2>
+								<h2>Choosing the Right AI Framework (7/8/2024)</h2>
 								<p><b>Problem: What AI Framework is Best?</b></p>
 								<p>This week, it was time for me to research how exactly to make our OCR. I had initially chosen to use ML.NET instead of the typical Python because I wanted to learn something new and it’s under the .NET framework, which is what we’re using to develop our app (.NET MAUI). However, as I started my research, some things made me reconsider that. First, ML.NET does not support neural networks natively; I would have to import a pretrained model and fine-tune it with my specific data. This is not terrible, but I was hoping to build my own neural network to learn more about how it works. Second, ML.NET will have trouble running models on Android because of processing constraints. To fix this, I would have to run a server to host my model and access it via HTTP request. These things don’t make using ML.NET impossible, but, are the benefits of using ML.NET worth the costs? Is there another language that’s more suited for our project?</p>
 								<p><b>Solution: Research With a Focus on Our Project Needs</b></p>
@@ -148,7 +149,7 @@
 
 							<div id="Task Management">
 								<br>
-								<h2>Task Management (7/13/2024)</h2>
+								<h2>Improving Jira Tasks (7/13/2024)</h2>
 								<p><b>Problem: Poorly Planned Jira Tasks</b></p>
 								<p>This week marked the start of the second month of the project, which means we finished our planning phase and are now focusing on the programming phase. Our producer helped us set up a Jira board to break down our project into manageable tasks and assign them to people. Every week, we will create tasks for ourselves, and Rebecca (our producer) will hold a build review meeting where we will showcase the tasks we’ve done.
 								</p>
@@ -245,6 +246,19 @@
 								<p>The second problem was that PythonAnywhere runs its services using Python 3.10, which crashes the API when it tries to import my OCR model since it was made with the TensorFlow library for Python 3.12. I tried to update the Python version on PythonAnywhere, but it failed since it would go over the maximum allotted disk space for my project.</p>
 								<p>So, the only other option was to downgrade my OCR model so it would work on PythonAnywhere. I created a virtual environment with Python 3.10, where I ran the code that builds the OCR model and exports it as a .keras file. It worked with the lower version of TensorFlow, and after uploading it to PythonAnywhere, the API ran like a charm!</p>
 								<p>Getting the API to work on a free hosting platform took a lot longer than I thought, but I’m glad I found a solution. It made me realize that it’s worth researching the limitations you have to work with before you start programming.</p>
+								<hr>
+							</div>
+
+							<div id="Creating User Tests"></div>
+								<br>
+								<h2>Creating User Tests (9/28/2024)</h2>
+								<p><b>Problem: How Do I Create Good User Tests?</b></p>
+								<p>This week, we have finally put together all the essential pieces of the app, and Budgie is officially in the Alpha stage! That means it’s time to perform some user tests on the app. In true Agile project management, we conduct user tests all throughout development, but since we are only students and our resources are limited, we’re doing our tests just once now. Now that the time has arrived though, I’m not sure what kind of tests our testers should perform. I don’t want to pick some random tests, I want to make the most out of the testers we have. So, how can I come up with good tests for our app?</p>
+								<p><b>Solution: Remember What User Tests Are For</b></p>
+								<p>First, I need to remember why we perform tests. We conduct user tests to know how users will react to the app. This is very valuable to know so we can make the best app possible for the user</p>
+								<p>Second, I need to know what parts of the app need testing. So, I got the team together and we discussed what areas of the app we’re not sure about and would like to have users test. For example, I didn’t know how easily a user would handle a situation where the OCR couldn’t read the price correctly, and if they would be confused about what to do next. We created a list of other scenarios we would like to test for. </p>
+								<p>We also weren’t sure how easy the app was to use, if the user would like the design, or if the user would even want an app like this. So we decided not only to perform think-aloud tests but also to provide a survey for the users to get their opinions afterward. Steven volunteered to write the think-aloud test scenarios as well as create the survey. I think he did a great job! You can find the scenarios <a href="assets/Budgie Alpha Tests.pptx">here</a>. </p>
+								<p>I’m glad I took the extra time and effort to create effective ideas for user tests, and I believe we’ll get a lot of valuable data from our tests.</p>
 								<hr>
 							</div>
 								
