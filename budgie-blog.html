@@ -56,6 +56,7 @@
 							<li><a href="budgie-blog.html#Improving Text Detection">Improving Text Detection (8/24/2024)</a></li>
 							<li><a href="budgie-blog.html#Meeting App Specifications">Meeting App Specifications (9/14/2024)</a></li>
 							<li><a href="budgie-blog.html#Creating User Tests">Creating User Tests (9/28/2024)</a></li>
+							<li><a href="budgie-blog.html#Implementing Callbacks">Implementing Callbacks (10/19/2024)</a></li>
 						</ul>
 						
 					</nav>
@@ -268,6 +269,19 @@
 								</ul>
 								<p>We also weren’t sure if the sure if the user would like the design or if the user would even want an app like this. So we decided not only to perform think-aloud tests but also to provide a survey for the users to get their opinions afterward. Steven volunteered to write the think-aloud test scenarios as well as create the survey. I think he did a great job! You can find the scenarios <a target="_blank" href="assets/Budgie Alpha Tests.pdf">here</a>. </p>
 								<p>I’m glad I took the extra time to create effective ideas for user tests, and I believe we’ll get a lot more valuable data from our tests because of our efforts!</p>
+								<hr>
+							</div>
+
+							<div id="Implementing Callbacks"></div>
+								<br>
+								<h2>Implementing Callbacks (10/19/2024)</h2>
+								<p><b>Problem: How Do I Pass a Function to Another Class?</b></p>
+								<p>Our app is entering its final stages of development! We’re now adding changes to the app based on the results from our user testing. We had gotten a lot of good feedback. </p>
+								<p>During the tests, we noticed that people were having trouble accessing the price scanning feature from the camera, so we decided to make an obvious button that would additionally add a new item to your budget with the price you got.								</p>
+								<p>I was assigned to add this feature, and as I was coding, I ran into an issue. I need to run the addNewItem function that’s in the ItemListActivity class, but it needs to be ran several layers deep in that class in another class called PostProcessActivity. I can’t just copy the same code because the ItemListActivity class has essential information, variables, and objects that the function needs to work correctly. What can I do to solve this issue?</p>
+								<p><b>Solution: Use Callbacks!</b></p>
+								<p>There are multiple ways I could handle this. I could reorganize the code so it’s all one class, but that would be too messy and not friendly in an object-oriented environment. So, if the classes must be separate, the only other option is to use callbacks. Essentially, a callback is a pre-defined list of instructions you refer back to when you are done with a process. This can help with our problem if the ItemListActivity class defines this list of instructions in an object, passes it along to the PostProcessActivity class, and have it run those instructions when it needs to. This is the typical design pattern for callbacks in Java. This way, it carries all the values it needs from ItemListActivity, and it can run in the PostProcessActivity class.</p>
+								<p>However, when I went to implement it, I realized that Android Activities don’t work the same way normal classes do; they have special functions that start and finish them. So, I actually have to change my approach to a system that Activities implement called onActivityResult. When an activity finishes, it can return any important data and run the list of instructions there. After realizing this, I was able to fix the problem, and even improved the code for our functions.</p>
 								<hr>
 							</div>
 								
